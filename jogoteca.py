@@ -30,6 +30,18 @@ usuarios = {usuario1.nickname: usuario1,
 app = Flask(__name__)
 app.secret_key = ''
 
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+    '{SGBD}://{usuario}:{senha}@{servidor}/{database}'.format(
+        SGBD = 'mysql+mysqlconnector',
+        usuario = 'root',
+        senha = 'admin'
+        servidor = 'localhost',
+        database = 'jogoteca'
+    )
+
+
+db = SQLAlchemy(app)
+
 @app.route('/')
 def index():
     return render_template('lista.html', titulo='Jogos', jogos=lista)
